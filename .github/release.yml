@@ -1,0 +1,98 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      prerelease: ${{ steps.check-prerelease.outputs.is_prerelease }}
+    steps:
+      - name: Check if pre-release
+        id: check-prerelease
+        run: |
+          TAG="${{ github.ref_name }}"
+          if echo "$TAG" | grep -qiE 'alpha|beta|rc|preview|dev|test'; then
+            echo "is_prerelease=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_prerelease=false" >> $GITHUB_OUTPUT
+          fi
+
+  build:
+    needs: check
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y g++
+
+      - name: Install dependencies (Windows)
+        if: runner.os == 'Windows'
+        run: choco install mingw -y
+
+      - name: Install dependencies (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          export HOMEBREW_NO_REQUIRE_TAP_TRUST=1
+          brew install gcc || true
+
+      - name: Build (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          SRC=$(sed -n '3p' quick.sh | sed 's/^g++ -o [^ ]* //')
+          g++ -std=c++17 -no-pie -o talon-os-linux $SRC
+
+      - name: Build (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          $CMD = (Get-Content quick.sh)[2]
+          $CMD = $CMD -replace 'main\.exe', 'talon-os-windows.exe'
+          Invoke-Expression $CMD
+
+      - name: Build (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          SRC=$(sed -n '3p' quick.sh | sed 's/^g++ -o [^ ]* //')
+          g++ -std=c++17 -o talon-os-macos $SRC
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: talon-os-${{ runner.os }}
+          path: talon-os-*
+
+  release:
+    needs: [check, build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: talon-os-*
+          merge-multiple: true
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: Talon OS ${{ github.ref_name }}
+          body: |
+            ## Talon OS ${{ github.ref_name }}
+
+            ### Downloads
+            - `talon-os-linux` — Linux binary
+            - `talon-os-windows.exe` — Windows binary
+            - `talon-os-macos` — macOS binary
+
+            ### Changelog
+          files: talon-os-*
+          draft: false
+          prerelease: ${{ needs.check.outputs.prerelease }}
+          generate_release_notes: true
