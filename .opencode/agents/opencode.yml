@@ -1,0 +1,2 @@
+agents:
+  update-changelog: .opencode/agents/update-changelog.yml
