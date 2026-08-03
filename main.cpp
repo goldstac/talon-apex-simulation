@@ -10,12 +10,15 @@
 #include <string>
 #include <filesystem>
 std::string version = "V0.0.1";
+std::string home_dir = "filesystem/home/admin/Desktop";
+std::string cache_dir = "filesystem/home/admin/.cache";
+std::string config_dir = "filesystem/home/admin/.config";
 int main(int argc,char* argv[]){
 bootloader(argc,argv);
    std::string shell;
    while (true)
    {
-     std::cout << "admin@talon [~/Desktop]\n --> ";
+     std::cout << "admin@talon [~/Desktop] " << version << "\n --> ";
      std::getline(std::cin,shell);
      if (shell == "clear"){
       #ifdef _WIN32
