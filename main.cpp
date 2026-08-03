@@ -9,6 +9,7 @@
 #include <sstream>
 #include <string>
 #include <filesystem>
+std::string version = "V0.0.1";
 int main(int argc,char* argv[]){
 bootloader(argc,argv);
    std::string shell;
@@ -28,6 +29,17 @@ bootloader(argc,argv);
      }
      else if (shell == "update"){
       run_update();
+     }
+     else if (shell == "exit"){
+      break;
+     }
+     else if (shell == "--version"){
+      std::cout << version << "\n";
+     }
+     else if (shell.substr(0,4) == "echo"){
+      if (shell.length() > 5){
+         std::cout << shell.substr(5) << "\n";
+      }
      }
    }
    

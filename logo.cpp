@@ -27,5 +27,5 @@ void printLogo(){
   std::cout << R1 << "        .+*#%@@@@@@@@@@@@@@@%#*+.\n";
   std::cout << R2 << "          .+*#%@@@@@@@@@@@%#*+.\n";
   std::cout << R2 << "             .+*#%@@@@@%#*+.\n";
-  std::cout << R << W << "             Talon Linux v1.0.7-6 (Stable)\n" << R;
+  std::cout << R << W << "             Talon Apex v0.0.1 (Stable)\n" << R;
 }
