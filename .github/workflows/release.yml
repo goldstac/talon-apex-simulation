@@ -50,18 +50,18 @@ jobs:
       - name: Build (Linux)
         if: runner.os == 'Linux'
         run: |
-          SRC="main.cpp bootloader.cpp kernel/extra/make_dirs.cpp logo.cpp update.cpp"
+          SRC="main.cpp bootloader.cpp kernel/extra/make_dirs.cpp logo.cpp update.cpp kernel/kernel.c"
           g++ -std=c++17 -no-pie -o talon-os-linux $SRC
 
       - name: Build (Windows)
         if: runner.os == 'Windows'
         run: |
-          g++ -std=c++17 -o talon-os-windows.exe main.cpp bootloader.cpp kernel/extra/make_dirs.cpp logo.cpp update.cpp
+          g++ -std=c++17 -o talon-os-windows.exe main.cpp bootloader.cpp kernel/extra/make_dirs.cpp logo.cpp update.cpp kernel/kernel.c
 
       - name: Build (macOS)
         if: runner.os == 'macOS'
         run: |
-          SRC="main.cpp bootloader.cpp kernel/extra/make_dirs.cpp logo.cpp update.cpp"
+          SRC="main.cpp bootloader.cpp kernel/extra/make_dirs.cpp logo.cpp update.cpp kernel/kernel.c"
           g++ -std=c++17 -o talon-os-macos $SRC
 
       - uses: actions/upload-artifact@v4
