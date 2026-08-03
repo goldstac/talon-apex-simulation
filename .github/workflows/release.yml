@@ -50,20 +50,18 @@ jobs:
       - name: Build (Linux)
         if: runner.os == 'Linux'
         run: |
-          SRC=$(sed -n '3p' quick.sh | sed 's/^g++ -o [^ ]* //')
+          SRC="main.cpp bootloader.cpp kernel/extra/make_dirs.cpp logo.cpp update.cpp"
           g++ -std=c++17 -no-pie -o talon-os-linux $SRC
 
       - name: Build (Windows)
         if: runner.os == 'Windows'
         run: |
-          $CMD = (Get-Content quick.sh)[2]
-          $CMD = $CMD -replace 'main\.exe', 'talon-os-windows.exe'
-          Invoke-Expression $CMD
+          g++ -std=c++17 -o talon-os-windows.exe main.cpp bootloader.cpp kernel/extra/make_dirs.cpp logo.cpp update.cpp
 
       - name: Build (macOS)
         if: runner.os == 'macOS'
         run: |
-          SRC=$(sed -n '3p' quick.sh | sed 's/^g++ -o [^ ]* //')
+          SRC="main.cpp bootloader.cpp kernel/extra/make_dirs.cpp logo.cpp update.cpp"
           g++ -std=c++17 -o talon-os-macos $SRC
 
       - uses: actions/upload-artifact@v4
