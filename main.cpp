@@ -132,7 +132,7 @@ bootloader(argc,argv);
      }
      else if (shell == "talon -qi"){
       std::cout << "-----------------------------\n";
-      std::cout << "Talon Apex" << version << "\n";
+      std::cout << "Talon Apex " << version << "\n";
       std::cout << "-------------------------------";
 
      }
