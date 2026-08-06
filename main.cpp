@@ -72,6 +72,9 @@ bootloader(argc,argv);
          std::cout << "say a filename\n";
       }
      }
+     else{
+      std::cout << "command not found\n";
+     }
    }
    
 
