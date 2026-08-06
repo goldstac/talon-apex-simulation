@@ -134,10 +134,7 @@ bootloader(argc,argv);
       std::cout << "-----------------------------\n";
       std::cout << "Talon Apex" << version << "\n";
       std::cout << "-------------------------------";
-      
-     }
-     else{
-      std::cout << "command not found\n";
+
      }
    }
    
