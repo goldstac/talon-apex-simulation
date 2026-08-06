@@ -133,7 +133,7 @@ bootloader(argc,argv);
      else if (shell == "talon -qi"){
       std::cout << "-----------------------------\n";
       std::cout << "Talon Apex " << version << "\n";
-      std::cout << "-------------------------------";
+      std::cout << "-------------------------------\n";
       std::cout << "Kernel     | Talon Apex Kernel " << kernel_version << "\n";
       std::cout << "Bootloader | Flash Bootloader " << flash_version << "\n";
 
