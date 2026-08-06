@@ -134,7 +134,7 @@ bootloader(argc,argv);
       std::cout << "-----------------------------\n";
       std::cout << "Talon Apex " << version << "\n";
       std::cout << "-------------------------------";
-
+      std::cout << "";
      }
    }
    
