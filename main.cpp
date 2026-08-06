@@ -9,7 +9,9 @@
 #include <sstream>
 #include <string>
 #include <filesystem>
-std::string version = "V0.0.2";
+std::string whoami = "admin";
+std::string flash_version = "V0.0.2";
+std::string version = "V0.0.3";
 std::string home_dir = "filesystem/home/admin/Desktop";
 std::string cache_dir = "filesystem/home/admin/.cache";
 std::string config_dir = "filesystem/home/admin/.config";
@@ -71,6 +73,17 @@ bootloader(argc,argv);
       else{
          std::cout << "say a filename\n";
       }
+     }
+     else if (shell == "whoami"){
+      std::cout << whoami << "\n";
+     }
+     else if (shell == "bootloader --version"){
+      std::cout << "Talon Apex Core\n";
+      std::cout << "Flash Bootloader\n";
+      std::cout << flash_version << "\n";
+     }
+     else if (shell == "echo $SHELL"){
+     std::cout << "Penguin\n";
      }
      else{
       std::cout << "command not found\n";
