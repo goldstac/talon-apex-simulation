@@ -9,12 +9,13 @@
 #include <sstream>
 #include <string>
 #include <filesystem>
-std::string whoami = "admin";
-std::string flash_version = "V0.0.2";
-std::string version = "V0.0.3";
-std::string home_dir = "filesystem/home/admin/Desktop";
-std::string cache_dir = "filesystem/home/admin/.cache";
-std::string config_dir = "filesystem/home/admin/.config";
+const std::string whoami = "admin";
+const std::string flash_version = "V0.0.2";
+const std::string version = "V0.0.3";
+const std::string kernel_version = "V1.0.0";
+const std::string home_dir = "filesystem/home/admin/Desktop";
+const std::string cache_dir = "filesystem/home/admin/.cache";
+const std::string config_dir = "filesystem/home/admin/.config";
 std::string read_file(const std::string& filepath) {
     std::ifstream file(filepath);
     std::stringstream buffer;
@@ -84,6 +85,56 @@ bootloader(argc,argv);
      }
      else if (shell == "echo $SHELL"){
      std::cout << "Penguin\n";
+     }
+     else if (shell == "kernel -v"){
+      std::cout << "Talon Apex Core\n";
+      std::cout << "Talon Apex Kernel\n";
+      std::cout << kernel_version << "\n";
+     }
+     else if (shell == "cat proc/cpuinfo"){
+     const std::string cpu_model = "Intel Core Ultra 9 285K";
+    int cpu_cores = 24;
+    int cpu_threads = 24;
+    std::string l2_cache = "40MB";
+    std::string l3_cache = "36MB";
+    std::string max_speed = "5.7 GHz";
+
+    std::cout << "---------------------------------\n";
+    std::cout << "            CPU INFO             \n";
+    std::cout << "---------------------------------\n";
+    std::cout << "Name      | " << cpu_model << "\n";
+    std::cout << "Cores     | " << cpu_cores << "\n";
+    std::cout << "Threads   | " << cpu_threads << "\n";
+    std::cout << "L2 Cache  | " << l2_cache << "\n";
+    std::cout << "L3 Cache  | " << l3_cache << "\n";
+    std::cout << "Max Speed | " << max_speed << "\n"; 
+     }
+     else if (shell == "cat proc/gpuinfo"){
+       std::string gpu_name = "Nvidia GeForce RTX 5090";
+  std::string vram = "32 GB";
+  std::string memory_type = "GDDR7";
+  int cuda_cores = 21760;
+  std::string architecture = "Blackwell";
+  std::string interface = "PCIE 5.0 X16 Slot";
+  std::string memory_bus = "512-Bit";
+  std::string bandwith = "1.79 TB/S";
+  std::cout << "----------------------------------------\n";
+  std::cout << "               GPU INFO\n";
+  std::cout << "----------------------------------------\n";
+  std::cout << "Name              |" << gpu_name << "\n";
+  std::cout << "VRAM              |" << vram << "\n";
+  std::cout << "CUDA Cores        |" << cuda_cores << "\n";
+  std::cout << "RAM Type          |" << memory_type << "\n";
+  std::cout << "Architecture      |" << architecture << "\n";
+  std::cout << "Interface         |" << interface << "\n";
+  std::cout << "Memory Bus        |" << memory_bus << "\n";
+  std::cout << "Memory Bandwith   |" << bandwith << "\n";
+     }
+     else if (shell == "talon -qi"){
+      std::cout << "-----------------------------\n";
+      std::cout << "Talon Apex" << version << "\n";
+      std::cout << "-------------------------------";
+      
      }
      else{
       std::cout << "command not found\n";
