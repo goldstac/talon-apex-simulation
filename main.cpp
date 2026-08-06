@@ -134,8 +134,6 @@ bootloader(argc,argv);
       std::cout << "-----------------------------\n";
       std::cout << "Talon Apex " << version << "\n";
       std::cout << "-------------------------------\n";
-      std::cout << "Core\n";
-      std::cout << "----------------------------------------------------------\n";
       std::cout << "Kernel     | Talon Apex Kernel " << kernel_version << "\n";
       std::cout << "Bootloader | Flash Bootloader " << flash_version << "\n";
 
