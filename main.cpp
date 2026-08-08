@@ -174,6 +174,12 @@ bootloader(argc,argv);
              }
          }
      }
+     else if (shell.substr(0,5) == "touch"){
+         if (shell.length() > 6){
+             std::string touch_file = shell.substr(6);
+
+         }
+     }
    }
 
 
