@@ -11,9 +11,10 @@ int main(){
     std::cout << "Enter Choice\n --> ";
     std::cin >> input;
     if (input == "1"){
+        std::cin.ignore();
         std::cout << "Enter Commit Message\n --> ";
-        std::cin >> commit_msg;
-        full = "git add . && git commit -m \"" + commit_msg + "\"";
+        std::getline(std::cin,commit_msg);
+        full = "git add . && git commit -m \"" + commit_msg + "\" && git push origin main";
         std::system(full.c_str());
         std::cout << "done :) \n";
     }
