@@ -143,7 +143,7 @@ bootloader(argc,argv);
 
      }
      else if (shell =="systeminfo"){
-
+         // coming soon
      }
      else if (shell.substr(0,3) == "vim"){
          if (shell.length() > 4){
@@ -159,10 +159,19 @@ bootloader(argc,argv);
          if (shell.length() > 5){
              std::string full_nvim = shell.substr(5);
              std::string full_nvim_cmd = "nvim " + home_dir + full_nvim;
-             std::system(full_nvim_cmd.c_str());
+             int nvim_run = std::system(full_nvim_cmd.c_str());
+             if (nvim_run !=0){
+                 std::cout << "something went wrong bro\n";
+             }
+             else{
+                 // all good bro
+             }
          }
          else{
-             std::system("nvim filesystem/home/admin/Desktop/");
+             int nvim_run2 = std::system("nvim filesystem/home/admin/Desktop/");
+             if(nvim_run2 !=0){
+                 std::cout << "something went wrong bro\n";
+             }
          }
      }
    }
