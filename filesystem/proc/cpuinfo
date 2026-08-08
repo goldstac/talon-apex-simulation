@@ -1,0 +1,9 @@
+---------------------------------
+         CPU INFO
+---------------------------------
+"Name     |  Intel Core Ultra 9 285K\n";
+"Cores    | " << cpu_cores << "\n";
+Threads   | " << cpu_threads << "\n";
+L2 Cache  | " << l2_cache << "\n";
+L3 Cache  | " << l3_cache << "\n";
+Max Speed | " << max_speed << "\n";
