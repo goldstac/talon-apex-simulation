@@ -30,6 +30,7 @@ void create_file(const std::string& filepath) {
     std::ofstream file(filepath);
 }
 int main(int argc,char* argv[]){
+    std::string cpuinfo = read_file("filesystem/proc/cpuinfo");
 bootloader(argc,argv);
    std::string shell;
    while (true)
@@ -142,7 +143,7 @@ bootloader(argc,argv);
 
      }
      else if (shell =="systeminfo"){
-         // work in progress
+
      }
    }
 
