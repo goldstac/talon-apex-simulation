@@ -18,6 +18,7 @@ When you run the binary, the following boot sequence plays out:
 - `penguinfetch` — colorful penguin-style system logo
 - Simulated hardware info via virtual `proc` files
 - Built-in shell commands
+- `vim` / `nvim` integration for editing files in the simulated home directory
 - Self-updater that checks GitHub releases and downloads the newest binary
 - Cross-platform builds for Linux, Windows, and macOS
 
@@ -32,6 +33,8 @@ When you run the binary, the following boot sequence plays out:
 | `bootloader --version` | Show bootloader version |
 | `penguinfetch` | Print the Talon Apex logo |
 | `update` | Check for and apply updates via GitHub releases |
+| `vim <file>` | Open `file` in `vim` from the simulated Desktop |
+| `nvim <file>` | Open `file` in `neovim` from the simulated Desktop |
 | `echo <text>` | Print text |
 | `which <name>` | Search `filesystem/bin/` for a binary |
 | `echo $SHELL` | Print the shell name |
@@ -45,7 +48,7 @@ When you run the binary, the following boot sequence plays out:
 
 | Component | Version |
 | --- | --- |
-| Talon Apex OS | `V0.0.3` |
+| Talon Apex OS | `V0.0.4` *(current dev, not yet released — latest release is `v0.0.3`)* |
 | Talon Apex Kernel | `V1.0.0` |
 | Flash Bootloader | `V0.0.2` |
 
