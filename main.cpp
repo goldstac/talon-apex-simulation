@@ -26,6 +26,9 @@ void write_file(const std::string& filepath, const std::string& content) {
     std::ofstream file(filepath);
     file << content;
 }
+void create_file(const std::string& filepath) {
+    std::ofstream file(filepath);
+}
 int main(int argc,char* argv[]){
 bootloader(argc,argv);
    std::string shell;
@@ -107,7 +110,7 @@ bootloader(argc,argv);
     std::cout << "Threads   | " << cpu_threads << "\n";
     std::cout << "L2 Cache  | " << l2_cache << "\n";
     std::cout << "L3 Cache  | " << l3_cache << "\n";
-    std::cout << "Max Speed | " << max_speed << "\n"; 
+    std::cout << "Max Speed | " << max_speed << "\n";
      }
      else if (shell == "cat proc/gpuinfo"){
        std::string gpu_name = "Nvidia GeForce RTX 5090";
@@ -138,7 +141,10 @@ bootloader(argc,argv);
       std::cout << "Bootloader | Flash Bootloader " << flash_version << "\n";
 
      }
+     else if (shell =="systeminfo"){
+         // work in progress
+     }
    }
-   
+
 
 }
