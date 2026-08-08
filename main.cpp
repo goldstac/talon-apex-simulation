@@ -11,9 +11,9 @@
 #include <filesystem>
 const std::string whoami = "admin";
 const std::string flash_version = "V0.0.2";
-const std::string version = "V0.0.3";
+const std::string version = "V0.0.4";
 const std::string kernel_version = "V1.0.0";
-const std::string home_dir = "filesystem/home/admin/Desktop";
+const std::string home_dir = "filesystem/home/admin/Desktop/";
 const std::string cache_dir = "filesystem/home/admin/.cache";
 const std::string config_dir = "filesystem/home/admin/.config";
 std::string read_file(const std::string& filepath) {
@@ -144,6 +144,26 @@ bootloader(argc,argv);
      }
      else if (shell =="systeminfo"){
 
+     }
+     else if (shell.substr(0,3) == "vim"){
+         if (shell.length() > 4){
+             std::string full_vim_command = shell.substr(4);
+             std::string full_vim_cmd = "vim " + home_dir + full_vim_command;
+             std::system(full_vim_cmd.c_str());
+         }
+         else{
+             std::system("vim filesystem/home/admin/Desktop/");
+         }
+     }
+     else if (shell.substr(0,4) == "nvim"){
+         if (shell.length() > 5){
+             std::string full_nvim = shell.substr(5);
+             std::string full_nvim_cmd = "nvim " + home_dir + full_nvim;
+             std::system(full_nvim_cmd.c_str());
+         }
+         else{
+             std::system("nvim filesystem/home/admin/Desktop/");
+         }
      }
    }
 
