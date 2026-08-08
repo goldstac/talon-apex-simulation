@@ -2,7 +2,7 @@
 #include <iostream>
 
 void printLogo(){
-  
+
   const std::string R = "\033[0m";
   const std::string G1 = "\033[1;33m";
   const std::string G2 = "\033[0;33m";
@@ -27,5 +27,5 @@ void printLogo(){
   std::cout << R1 << "        .+*#%@@@@@@@@@@@@@@@%#*+.\n";
   std::cout << R2 << "          .+*#%@@@@@@@@@@@%#*+.\n";
   std::cout << R2 << "             .+*#%@@@@@%#*+.\n";
-  std::cout << R << W << "             Talon Apex v0.0.3 (Stable)\n" << R;
+  std::cout << R << W << "             Talon Apex v0.0.4 (Stable)\n" << R;
 }
