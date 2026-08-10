@@ -16,6 +16,7 @@ const std::string kernel_version = "V1.0.0";
 const std::string home_dir = "filesystem/home/admin/Desktop/";
 const std::string cache_dir = "filesystem/home/admin/.cache";
 const std::string config_dir = "filesystem/home/admin/.config";
+namespace fs = std::filesystem;
 std::string read_file(const std::string& filepath) {
     std::ifstream file(filepath);
     std::stringstream buffer;
@@ -177,6 +178,16 @@ bootloader(argc,argv);
      else if (shell.substr(0,5) == "touch"){
          if (shell.length() > 6){
              std::string touch_file = shell.substr(6);
+             std::string touch_make_path = home_dir + touch_file;
+             if(!fs::exists(touch_make_path)){
+                 create_file(touch_make_path);
+             }
+             else{
+                 std::cout << "file already exists\n";
+             }
+         }
+         else{
+             std::cout << "enter a filename\n";
          }
      }
    }
