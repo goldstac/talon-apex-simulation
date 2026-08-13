@@ -220,6 +220,11 @@ bootloader(argc,argv);
          std::cout << " Talon Apex / Filesystem Showcase\n";
          std::cout << "-----------------------------------\n";
          std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
      }
 
      }
