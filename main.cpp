@@ -139,7 +139,7 @@ bootloader(argc,argv);
   std::cout << "Memory Bus        |" << memory_bus << "\n";
   std::cout << "Memory Bandwith   |" << bandwith << "\n";
      }
-     else if (shell == "talon -qi"){
+     else if (shell == "t!qi"){
       std::cout << "-----------------------------\n";
       std::cout << "Talon Apex " << version << "\n";
       std::cout << "-------------------------------\n";
@@ -148,7 +148,7 @@ bootloader(argc,argv);
 
      }
      else if (shell =="systeminfo"){
-         // coming soon :)
+         // coming soon :
      }
      else if (shell.substr(0,3) == "vim"){
          if (shell.length() > 4){
