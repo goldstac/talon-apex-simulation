@@ -1,4 +1,5 @@
 #include "logo.h"
+#include "version.h"
 #include <iostream>
 
 void printLogo(){
@@ -27,5 +28,5 @@ void printLogo(){
   std::cout << R1 << "        .+*#%@@@@@@@@@@@@@@@%#*+.\n";
   std::cout << R2 << "          .+*#%@@@@@@@@@@@%#*+.\n";
   std::cout << R2 << "             .+*#%@@@@@%#*+.\n";
-  std::cout << R << W << "             Talon Apex v0.0.4 (Stable)\n" << R;
+  std::cout << R << W << "             Talon Apex " << TALON_VERSION << " (Stable)\n" << R;
 }

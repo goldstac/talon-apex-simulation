@@ -1,4 +1,5 @@
 #include "update.h"
+#include "version.h"
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
@@ -11,7 +12,6 @@ const std::string UPDATE_PLATFORM = "macos";
 #else
 const std::string UPDATE_PLATFORM = "linux";
 #endif
-const std::string UPDATE_VERSION = "0.0.1";
 
 void run_update() {
   std::cout << "Checking for updates...\n";
@@ -60,10 +60,10 @@ void run_update() {
       pclose(fp);
   }
 #endif
-  if (latest == "v" + UPDATE_VERSION) {
-    std::cout << "Already up to date (v" << UPDATE_VERSION << ")\n";
+  if (latest == "v" + TALON_VERSION_RAW) {
+    std::cout << "Already up to date (v" << TALON_VERSION_RAW << ")\n";
   } else if (!latest.empty()) {
-    std::cout << "Updating from v" << UPDATE_VERSION << " to " << latest
+    std::cout << "Updating from v" << TALON_VERSION_RAW << " to " << latest
               << "...\n";
     std::string dl = "curl -L "
                      "https://github.com/goldstac/talon-apex-simulation/"
