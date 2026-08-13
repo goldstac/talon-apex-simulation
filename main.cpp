@@ -215,6 +215,12 @@ bootloader(argc,argv);
          //coming soon
          // need to fix /proc stuff :sob
      }
+     else if (shell == "t!fs"){
+         std::cout << "-----------------------------------\n";
+         std::cout << " Talon Apex / Filesystem Showcase\n";
+         std::cout << "-----------------------------------\n";
+         std::cout << "|\n";
+     }
 
      }
    }
