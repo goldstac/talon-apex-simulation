@@ -1,4 +1,5 @@
 #include "update.h"
+#include "version.h"
 #include "bootloader.h"
 #include "kernel/kernel.h"
 #include "logo.h"
@@ -9,10 +10,11 @@
 #include <sstream>
 #include <string>
 #include <filesystem>
+std::map<std::string, std::string>dir;
 const std::string whoami = "admin";
-const std::string flash_version = "V0.0.2";
-const std::string version = "V0.0.4";
-const std::string kernel_version = "V1.0.0";
+const std::string flash_version = BOOTLOADER_VERSION;
+const std::string version = TALON_VERSION;
+const std::string kernel_version = KERNEL_VERSION;
 const std::string home_dir = "filesystem/home/admin/Desktop/";
 const std::string cache_dir = "filesystem/home/admin/.cache";
 const std::string config_dir = "filesystem/home/admin/.config";
@@ -34,6 +36,9 @@ int main(int argc,char* argv[]){
     std::string cpuinfo = read_file("filesystem/proc/cpuinfo");
 bootloader(argc,argv);
    std::string shell;
+   dir["Desktop"] = "filesystem/home/admin/Desktop";
+   dir[".config"] = "filesystem/home/admin/.config";
+   dir[".cache"] = "filesystem/home/admin/.cache";
    while (true)
    {
      std::cout << "admin@talon [~/Desktop] " << version << "\n --> ";
@@ -173,6 +178,9 @@ bootloader(argc,argv);
              if(nvim_run2 !=0){
                  std::cout << "something went wrong bro\n";
              }
+             else{
+                 // all good bro
+             }
          }
      }
      else if (shell.substr(0,5) == "touch"){
@@ -186,11 +194,9 @@ bootloader(argc,argv);
                  std::cout << "file already exists\n";
              }
          }
-         else{
              std::cout << "enter a filename\n";
          }
+
+
      }
    }
-
-
-}
