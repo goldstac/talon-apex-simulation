@@ -211,6 +211,10 @@ bootloader(argc,argv);
      else if (shell == "!ping"){
          std::cout << "Pong!\n";
      }
+     else if (shell == "meminfo"){
+         //coming soon
+         // need to fix /proc stuff :sob
+     }
 
      }
    }
