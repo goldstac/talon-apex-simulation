@@ -40,7 +40,7 @@ bootloader(argc,argv);
    dir[".cache"] = "filesystem/home/admin/.cache";
    while (true)
    {
-     std::cout << "admin@talon [~/Desktop] " << version << "\n --> ";
+     std::cout << "admin@talon [~/Desktop] " << version << "\n --> $ ";
      std::getline(std::cin,shell);
      if (shell == "clear"){
       #ifdef _WIN32
@@ -207,6 +207,9 @@ bootloader(argc,argv);
            }
 
          }
+     }
+     else if (shell == "!ping"){
+         std::cout << "Pong!\n";
      }
 
      }
