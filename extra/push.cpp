@@ -14,7 +14,7 @@ int main(){
         std::cin.ignore();
         std::cout << "Enter Commit Message\n --> ";
         std::getline(std::cin,commit_msg);
-        full = "git add . && git commit -m \"" + commit_msg + "\" && git push origin main";
+        full = "git add . && git commit -m \"" + commit_msg + "\" && git push";
         std::system(full.c_str());
         std::cout << "done :) \n";
     }
