@@ -1,7 +1,6 @@
 #include "update.h"
 #include "version.h"
 #include "bootloader.h"
-#include "kernel/kernel.h"
 #include "logo.h"
 #include <cstdlib>
 #include <fstream>
@@ -202,7 +201,10 @@ bootloader(argc,argv);
              if (target_cd.substr(0,2) == "~/"){
                  target_cd = target_cd.substr(2);
              }
-
+           if (dir.count(target_cd)){
+               std::string actualpath = dir[target_cd];
+               std::cout << "moved to " << actualpath << "\n";
+           }
 
          }
      }
