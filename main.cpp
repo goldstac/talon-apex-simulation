@@ -148,7 +148,7 @@ bootloader(argc,argv);
 
      }
      else if (shell =="systeminfo"){
-         // coming soon
+         // coming soon :)
      }
      else if (shell.substr(0,3) == "vim"){
          if (shell.length() > 4){
