@@ -2,6 +2,3 @@ main
 bgit-tui
 bgit
 push
-*.o
-talon-os-*
-filesystem/home/admin/.cache/
