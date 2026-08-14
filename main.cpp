@@ -2,6 +2,7 @@
 #include "version.h"
 #include "bootloader.h"
 #include "logo.h"
+#include <algorithm>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
@@ -9,6 +10,7 @@
 #include <sstream>
 #include <string>
 #include <filesystem>
+#include <vector>
 std::map<std::string, std::string>dir;
 const std::string whoami = "admin";
 const std::string flash_version = BOOTLOADER_VERSION;
@@ -30,6 +32,24 @@ void write_file(const std::string& filepath, const std::string& content) {
 }
 void create_file(const std::string& filepath) {
     std::ofstream file(filepath);
+}
+void print_tree(const fs::path& path, const std::string& prefix, bool root_level, const std::string& skip = "") {
+    std::vector<fs::directory_entry> entries;
+    for (const auto& e : fs::directory_iterator(path)) {
+        entries.push_back(e);
+    }
+    std::sort(entries.begin(), entries.end(), [](const fs::directory_entry& a, const fs::directory_entry& b) {
+        return a.path().filename().string() < b.path().filename().string();
+    });
+    for (size_t i = 0; i < entries.size(); ++i) {
+        bool last = (i + 1 == entries.size());
+        const fs::directory_entry& e = entries[i];
+        std::cout << prefix << (root_level ? "|--- " : "|---- ");
+        std::cout << e.path().filename().string() << (e.is_directory() ? "/" : "") << "\n";
+        if (e.is_directory() && e.path().filename().string() != skip) {
+            print_tree(e.path(), prefix + (last ? "    " : "|   "), false, skip);
+        }
+    }
 }
 int main(int argc,char* argv[]){
     std::string cpuinfo = read_file("filesystem/proc/cpuinfo");
@@ -215,32 +235,12 @@ bootloader(argc,argv);
          //coming soon
          // need to fix /proc stuff :sob
      }
-     else if (shell == "t!fs"){
-         std::cout << "-----------------------------------\n";
-         std::cout << " Talon Apex / Filesystem Showcase\n";
-         std::cout << "-----------------------------------\n";
-         std::cout << "|--- home\n";
-         std::cout << "|   |---- admin/\n";
-         std::cout << "| \n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-         std::cout << "|\n";
-     }
+      else if (shell == "t!fs"){
+          std::cout << "-----------------------------------\n";
+          std::cout << " Talon Apex / Filesystem Showcase\n";
+          std::cout << "-----------------------------------\n";
+          print_tree("filesystem", "", true, "bin");
+      }
 
      }
    }
