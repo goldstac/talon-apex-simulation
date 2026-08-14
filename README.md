@@ -28,7 +28,7 @@ When you run the binary, the following boot sequence plays out:
 | --- | --- |
 | `cat proc/cpuinfo` | Show simulated CPU info (Intel Core Ultra 9 285K) |
 | `cat proc/gpuinfo` | Show simulated GPU info (Nvidia RTX 5090) |
-| `talon -qi` | Show quick system/version info |
+| `t!qi` | Show quick system/version info |
 | `kernel -v` | Show kernel version |
 | `bootloader --version` | Show bootloader version |
 | `penguinfetch` | Print the Talon Apex logo |
@@ -37,12 +37,23 @@ When you run the binary, the following boot sequence plays out:
 | `nvim <file>` | Open `file` in `neovim` from the simulated Desktop |
 | `echo <text>` | Print text |
 | `which <name>` | Search `filesystem/bin/` for a binary |
-| `echo $SHELL` | Print the shell name |
+| `echo $SHELL` | Print the shell name (`Penguin`) |
+| `touch <file>` | Create an empty file in the simulated Desktop |
+| `t!fs` | Print the virtual filesystem tree |
+| `!ping` | Print `Pong!` |
 | `date` | Print the current date |
 | `whoami` | Print the current user (`admin`) |
 | `clear` | Clear the screen |
 | `--version` | Print the OS version |
 | `exit` | Quit the shell |
+
+### In development
+
+| Command | Status |
+| --- | --- |
+| `cd <dir>` | Under development |
+| `meminfo` | Coming soon |
+| `systeminfo` | Coming soon |
 
 ## System Information
 
@@ -82,12 +93,24 @@ GitHub Actions (`.github/workflows/release.yml`) builds and attaches binaries fo
 .
 ├── main.cpp            # Shell entry point and command loop
 ├── bootloader.cpp      # Flash Bootloader boot menu
+├── bootloader.h
 ├── update.cpp          # Self-updater using GitHub releases
+├── update.h
 ├── logo.cpp            # penguinfetch logo
+├── logo.h
+├── version.h           # Source of truth for OS/kernel/bootloader versions
+├── create_bin.cpp      # Helper placeholder for bin creation
+├── quick.sh            # Build script
+├── tag.sh              # Tag and push a release
 ├── kernel/
 │   ├── kernel.c        # Fake kernel init sequence
+│   ├── kernel.h
 │   └── extra/          # make_dirs, initramfs, compat helpers
+├── extra/
+│   └── push.cpp        # Source of the `push` helper binary
 ├── filesystem/         # Simulated filesystem (bin, boot, home, proc, rootfs, tmpfs)
+├── tmpfs/              # Root-level tmpfs mirror
+├── .opencode/          # opencode agent configs
 └── .github/workflows/  # Build & release automation
 ```
 
