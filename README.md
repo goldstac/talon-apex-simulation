@@ -59,7 +59,7 @@ When you run the binary, the following boot sequence plays out:
 
 | Component | Version |
 | --- | --- |
-| Talon Apex OS | `V0.0.4` *(current dev, not yet released — latest release is `v0.0.3`)* |
+| Talon Apex OS | `V0.0.4` *(latest release)* |
 | Talon Apex Kernel | `V1.0.0` |
 | Flash Bootloader | `V0.0.2` |
 
