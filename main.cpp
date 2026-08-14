@@ -232,6 +232,7 @@ bootloader(argc,argv);
      }
      else if (shell == "!ping"){
          std::cout << "Pong!\n";
+         std::cout << "System Is Responsive\n";
      }
      else if (shell == "meminfo"){
          //coming soon
