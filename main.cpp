@@ -216,6 +216,8 @@ bootloader(argc,argv);
              std::cout << "enter a filename\n";
          }
      else if (shell.substr(0,2) == "cd"){
+           std::cout << "CD IS UNDER DEVELOPMENT\n";
+
          if (shell.length() > 3){
              std::string target_cd = shell.substr(3);
              if (target_cd.substr(0,2) == "~/"){
