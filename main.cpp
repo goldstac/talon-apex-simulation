@@ -225,6 +225,21 @@ bootloader(argc,argv);
          std::cout << "|\n";
          std::cout << "|\n";
          std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
+         std::cout << "|\n";
      }
 
      }
