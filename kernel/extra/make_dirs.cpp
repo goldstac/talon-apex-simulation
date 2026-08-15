@@ -41,5 +41,32 @@ void make_dirs(int argc, char* argv[]) {
     else{
         // chill they exist
     }
-    
+    std::string cpuinfo_path = "filesystem/proc/cpuinfo";
+    if (!fs::exists(cpuinfo_path)) {
+        std::ofstream cpuinfo(cpuinfo_path);
+        cpuinfo << "---------------------------------\n"
+                << "            CPU INFO             \n"
+                << "---------------------------------\n"
+                << "Name      | Intel Core Ultra 9 285K\n"
+                << "Cores     | 24\n"
+                << "Threads   | 24\n"
+                << "L2 Cache  | 40MB\n"
+                << "L3 Cache  | 36MB\n"
+                << "Max Speed | 5.7 GHz\n";
+    }
+    std::string gpuinfo_path = "filesystem/proc/gpuinfo";
+    if (!fs::exists(gpuinfo_path)) {
+        std::ofstream gpuinfo(gpuinfo_path);
+        gpuinfo << "----------------------------------------\n"
+                << "               GPU INFO\n"
+                << "----------------------------------------\n"
+                << "Name              |Nvidia GeForce RTX 5090\n"
+                << "VRAM              |32 GB\n"
+                << "CUDA Cores        |21760\n"
+                << "RAM Type          |GDDR7\n"
+                << "Architecture      |Blackwell\n"
+                << "Interface         |PCIE 5.0 X16 Slot\n"
+                << "Memory Bus        |512-Bit\n"
+                << "Memory Bandwith   |1.79 TB/S\n";
+    }
 }
