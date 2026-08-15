@@ -28,6 +28,8 @@ When you run the binary, the following boot sequence plays out:
 | --- | --- |
 | `cat proc/cpuinfo` | Show simulated CPU info (Intel Core Ultra 9 285K) |
 | `cat proc/gpuinfo` | Show simulated GPU info (Nvidia RTX 5090) |
+| `cat proc/meminfo` | Show simulated memory info (64 GB DDR5) |
+| `cd <dir>` | Change directory (supports `~`, `..`, `/boot` style paths — explore anywhere inside `filesystem/`, can't leave it) |
 | `t!qi` | Show quick system/version info |
 | `kernel -v` | Show kernel version |
 | `bootloader --version` | Show bootloader version |
@@ -51,8 +53,6 @@ When you run the binary, the following boot sequence plays out:
 
 | Command | Status |
 | --- | --- |
-| `cd <dir>` | Under development |
-| `meminfo` | Coming soon |
 | `systeminfo` | Coming soon |
 
 ## System Information
@@ -67,6 +67,8 @@ When you run the binary, the following boot sequence plays out:
 
 Requires `g++` (C++17).
 
+> **Tip:** the easiest way to get Talon Apex is to download the prebuilt binary for your platform from the [latest release](https://github.com/goldstac/talon-apex-simulation/releases) — no compiler needed. Building from source works too if you prefer.
+
 ```sh
 ./quick.sh
 ./main
@@ -75,7 +77,7 @@ Requires `g++` (C++17).
 Or build manually:
 
 ```sh
-g++ -o main main.cpp bootloader.cpp kernel/extra/make_dirs.cpp logo.cpp update.cpp kernel/kernel.c
+g++ -o main main.cpp bootloader.cpp kernel/extra/make_dirs.cpp kernel/extra/initramfs.cpp logo.cpp update.cpp kernel/kernel.c
 ./main
 ```
 

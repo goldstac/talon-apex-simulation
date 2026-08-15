@@ -7,6 +7,7 @@
 - New `filesystem/proc/meminfo` file with simulated memory info (64 GB DDR5)
 - `!ping` prints an extra "System Is Responsive" message
 - New `Talon Calculator` under `extra/apex-dep/calculator.c`
-- `cd` is now functional: tracks the working directory, supports `~`, `..`, relative paths, and is sandboxed to `filesystem/`
+- Fixed `initramfs`: bootloader now creates `initramfs.img` and `initramfs_uncompressed.img` after the directory check
+- `cd` is now functional: tracks the working directory, supports `~`, `..`, `/boot`-style paths, and can explore anywhere inside `filesystem/` (sandboxed — can't leave it)
 - The shell prompt now shows the current directory (e.g. `[~/.cache]`)
 - `touch`, `vim`, and `nvim` now operate in the current directory
