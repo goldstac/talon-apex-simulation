@@ -2,6 +2,7 @@
 #include "version.h"
 #include "bootloader.h"
 #include "logo.h"
+#include "extra/apex-dep/calculator.h"
 #include <algorithm>
 #include <cstdlib>
 #include <fstream>
@@ -234,6 +235,8 @@ std::string shell;
           std::cout << "-----------------------------------\n";
           print_tree("filesystem", "", true, "bin");
       }
-
+      else if (shell == "calculator"){
+          calculator();
+      }
      }
    }
