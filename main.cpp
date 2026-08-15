@@ -37,7 +37,9 @@ std::string resolve_path(const std::string& input) {
     if (path == "~") return "filesystem/home/admin";
     if (path.rfind("~/", 0) == 0) {
         path = "filesystem/home/admin/" + path.substr(2);
-    } else if (!path.empty() && path[0] != '/') {
+    } else if (!path.empty() && path[0] == '/') {
+        path = "filesystem" + path;
+    } else if (!path.empty()) {
         path = current_dir + "/" + path;
     }
     std::string resolved = fs::path(path).lexically_normal().string();
@@ -195,9 +197,14 @@ std::string shell;
          if (shell.length() <= 2) {
              target = "filesystem/home/admin";
          } else {
-             target = resolve_path(shell.substr(3));
+             std::string base = shell.substr(3);
+             target = resolve_path(base);
+             if (!fs::is_directory(target) && base.find('/') == std::string::npos && base != "." && base != "..") {
+                 std::string alt = "filesystem/" + base;
+                 if (fs::is_directory(alt)) target = alt;
+             }
          }
-         if (target.rfind("filesystem/", 0) != 0) {
+         if (target != "filesystem" && target.rfind("filesystem/", 0) != 0) {
              std::cout << "cd: you can't leave the sandbox\n";
          } else if (fs::is_directory(target)) {
              current_dir = target;

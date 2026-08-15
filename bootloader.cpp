@@ -11,6 +11,7 @@ void bootloader(int argc, char* argv[]){
     std::cin.ignore();
     if (boot_option == 1){
         make_dirs(argc,argv);
+        create_tmpfs_initramfs();
         kernel();
     }
 }
