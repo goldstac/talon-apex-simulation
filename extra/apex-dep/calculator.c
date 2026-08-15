@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdio.h>
-int main(){
+void calculator(){
    int first_number;
    int second_number;
    int final_calculation;
