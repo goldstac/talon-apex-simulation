@@ -5,3 +5,5 @@
 - `cat proc/cpuinfo` and `cat proc/gpuinfo` now read from real files under `filesystem/proc/` instead of hardcoded shell blocks
 - `make_dirs` generates `filesystem/proc/cpuinfo` and `filesystem/proc/gpuinfo` with content on first boot
 - `!ping` prints an extra "System Is Responsive" message
+- New `filesystem/proc/meminfo` file with simulated memory info (64 GB DDR5)
+- New `Talon Calculator` under `extra/apex-dep/calculator.c`
