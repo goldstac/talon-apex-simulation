@@ -6,12 +6,10 @@
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
-#include <map>
 #include <sstream>
 #include <string>
 #include <filesystem>
 #include <vector>
-std::map<std::string, std::string>dir;
 const std::string whoami = "admin";
 const std::string flash_version = BOOTLOADER_VERSION;
 const std::string version = TALON_VERSION;
@@ -20,6 +18,7 @@ const std::string home_dir = "filesystem/home/admin/Desktop/";
 const std::string cache_dir = "filesystem/home/admin/.cache";
 const std::string config_dir = "filesystem/home/admin/.config";
 namespace fs = std::filesystem;
+std::string current_dir = "filesystem/home/admin/Desktop";
 std::string read_file(const std::string& filepath) {
     std::ifstream file(filepath);
     std::stringstream buffer;
@@ -32,6 +31,20 @@ void write_file(const std::string& filepath, const std::string& content) {
 }
 void create_file(const std::string& filepath) {
     std::ofstream file(filepath);
+}
+std::string resolve_path(const std::string& input) {
+    std::string path = input;
+    if (path == "~") return "filesystem/home/admin";
+    if (path.rfind("~/", 0) == 0) {
+        path = "filesystem/home/admin/" + path.substr(2);
+    } else if (!path.empty() && path[0] != '/') {
+        path = current_dir + "/" + path;
+    }
+    std::string resolved = fs::path(path).lexically_normal().string();
+    if (resolved.size() > 1 && resolved.back() == '/') {
+        resolved.pop_back();
+    }
+    return resolved;
 }
 void print_tree(const fs::path& path, const std::string& prefix, bool root_level, const std::string& skip = "") {
     std::vector<fs::directory_entry> entries;
@@ -54,13 +67,14 @@ void print_tree(const fs::path& path, const std::string& prefix, bool root_level
 int main(int argc,char* argv[]){
     std::string cpuinfo = read_file("filesystem/proc/cpuinfo");
 bootloader(argc,argv);
-   std::string shell;
-   dir["Desktop"] = "filesystem/home/admin/Desktop";
-   dir[".config"] = "filesystem/home/admin/.config";
-   dir[".cache"] = "filesystem/home/admin/.cache";
-   while (true)
-   {
-     std::cout << "admin@talon [~/Desktop] " << version << "\n --> $ ";
+std::string shell;
+    while (true)
+    {
+     std::string display_dir = current_dir;
+     if (display_dir.rfind("filesystem/home/admin", 0) == 0) {
+         display_dir = "~" + display_dir.substr(21);
+     }
+     std::cout << "admin@talon [" << display_dir << "] " << version << "\n --> $ ";
      std::getline(std::cin,shell);
      if (shell == "clear"){
       #ifdef _WIN32
@@ -134,17 +148,17 @@ bootloader(argc,argv);
      else if (shell.substr(0,3) == "vim"){
          if (shell.length() > 4){
              std::string full_vim_command = shell.substr(4);
-             std::string full_vim_cmd = "vim " + home_dir + full_vim_command;
+             std::string full_vim_cmd = "vim " + current_dir + "/" + full_vim_command;
              std::system(full_vim_cmd.c_str());
          }
          else{
-             std::system("vim filesystem/home/admin/Desktop/");
+             std::system(("vim " + current_dir).c_str());
          }
      }
      else if (shell.substr(0,4) == "nvim"){
          if (shell.length() > 5){
              std::string full_nvim = shell.substr(5);
-             std::string full_nvim_cmd = "nvim " + home_dir + full_nvim;
+             std::string full_nvim_cmd = "nvim " + current_dir + "/" + full_nvim;
              int nvim_run = std::system(full_nvim_cmd.c_str());
              if (nvim_run !=0){
                  std::cout << "something went wrong bro\n";
@@ -154,7 +168,7 @@ bootloader(argc,argv);
              }
          }
          else{
-             int nvim_run2 = std::system("nvim filesystem/home/admin/Desktop/");
+             int nvim_run2 = std::system(("nvim " + current_dir).c_str());
              if(nvim_run2 !=0){
                  std::cout << "something went wrong bro\n";
              }
@@ -166,7 +180,7 @@ bootloader(argc,argv);
      else if (shell.substr(0,5) == "touch"){
          if (shell.length() > 6){
              std::string touch_file = shell.substr(6);
-             std::string touch_make_path = home_dir + touch_file;
+             std::string touch_make_path = current_dir + "/" + touch_file;
              if(!fs::exists(touch_make_path)){
                  create_file(touch_make_path);
              }
@@ -177,29 +191,37 @@ bootloader(argc,argv);
              std::cout << "enter a filename\n";
          }
      else if (shell.substr(0,2) == "cd"){
-           std::cout << "CD IS UNDER DEVELOPMENT\n";
-
-         if (shell.length() > 3){
-             std::string target_cd = shell.substr(3);
-             if (target_cd.substr(0,2) == "~/"){
-                 target_cd = target_cd.substr(2);
-             }
-           if (dir.count(target_cd)){
-               std::string actualpath = dir[target_cd];
-               std::cout << "moved to " << actualpath << "\n";
-           }
-
+         std::string target;
+         if (shell.length() <= 2) {
+             target = "filesystem/home/admin";
+         } else {
+             target = resolve_path(shell.substr(3));
+         }
+         if (target.rfind("filesystem/", 0) != 0) {
+             std::cout << "cd: you can't leave the sandbox\n";
+         } else if (fs::is_directory(target)) {
+             current_dir = target;
+             std::cout << "moved to " << current_dir << "\n";
+         } else {
+             std::cout << "cd: no such directory\n";
          }
      }
      else if (shell == "!ping"){
          std::cout << "Pong!\n";
          std::cout << "System Is Responsive\n";
      }
-     else if (shell == "meminfo"){
-         //coming soon
-         // need to fix /proc stuff :sob
+     else if (shell == "cat proc/meminfo"){
+         std::string load_meminfo = read_file("filesystem/proc/meminfo");
+         std::cout << load_meminfo << "\n";
      }
-      else if (shell == "t!fs"){
+     else if (shell == "cat proc/cpuinfo"){
+         std::cout << cpuinfo << "\n";
+     }
+     else if (shell == "cat proc/gpuinfo"){
+         std::string gpuinfo = read_file("filesystem/proc/gpuinfo");
+         std::cout << gpuinfo << "\n";
+     }
+     else if (shell == "t!fs"){
           std::cout << "-----------------------------------\n";
           std::cout << " Talon Apex / Filesystem Showcase\n";
           std::cout << "-----------------------------------\n";
