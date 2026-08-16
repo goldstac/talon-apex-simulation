@@ -191,8 +191,10 @@ std::string shell;
                  std::cout << "file already exists\n";
              }
          }
+         else{
              std::cout << "enter a filename\n";
          }
+     }
      else if (shell.substr(0,2) == "cd"){
          std::string target;
          if (shell.length() <= 2) {
@@ -217,6 +219,26 @@ std::string shell;
      else if (shell == "!ping"){
          std::cout << "Pong!\n";
          std::cout << "System Is Responsive\n";
+     }
+     else if (shell.substr(0,2) == "ls"){
+         std::string ls_target = current_dir;
+         if (shell.length() > 3){
+             std::string base = shell.substr(3);
+             ls_target = resolve_path(base);
+             if (!fs::is_directory(ls_target) && base.find('/') == std::string::npos && base != "." && base != "..") {
+                 std::string alt = "filesystem/" + base;
+                 if (fs::is_directory(alt)) ls_target = alt;
+             }
+         }
+         if (ls_target != "filesystem" && ls_target.rfind("filesystem/", 0) != 0) {
+             std::cout << "ls: you can't leave the sandbox\n";
+         } else if (!fs::is_directory(ls_target)) {
+             std::cout << "ls: no such directory\n";
+         } else {
+             for (const auto& e : fs::directory_iterator(ls_target)) {
+                 std::cout << (e.is_directory() ? "[dir]  " : "[file] ") << e.path().filename().string() << "\n";
+             }
+         }
      }
      else if (shell == "cat proc/meminfo"){
          std::string load_meminfo = read_file("filesystem/proc/meminfo");

@@ -30,6 +30,7 @@ When you run the binary, the following boot sequence plays out:
 | `cat proc/gpuinfo` | Show simulated GPU info (Nvidia RTX 5090) |
 | `cat proc/meminfo` | Show simulated memory info (64 GB DDR5) |
 | `cd <dir>` | Change directory (supports `~`, `..`, `/boot` style paths — explore anywhere inside `filesystem/`, can't leave it) |
+| `ls` | List files/dirs in the current directory (`ls <dir>` to list another) |
 | `t!qi` | Show quick system/version info |
 | `kernel -v` | Show kernel version |
 | `bootloader --version` | Show bootloader version |
