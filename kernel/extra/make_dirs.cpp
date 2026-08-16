@@ -69,4 +69,20 @@ void make_dirs(int argc, char* argv[]) {
                 << "Memory Bus        |512-Bit\n"
                 << "Memory Bandwith   |1.79 TB/S\n";
     }
+    std::string meminfo_path = "filesystem/proc/meminfo";
+    if (!fs::exists(meminfo_path)) {
+        std::ofstream meminfo(meminfo_path);
+        meminfo << "---------------------------------\n"
+                << "            MEM INFO             \n"
+                << "---------------------------------\n"
+                << "MemTotal     | 64 GB\n"
+                << "MemFree      | 52 GB\n"
+                << "MemAvailable | 55 GB\n"
+                << "Buffers      | 1.2 GB\n"
+                << "Cached       | 8.5 GB\n"
+                << "SwapTotal    | 16 GB\n"
+                << "SwapFree     | 16 GB\n"
+                << "Memory Type  | DDR5\n"
+                << "Speed        | 7200 MT/S\n";
+    }
 }
