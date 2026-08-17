@@ -38,6 +38,8 @@ When you run the binary, the following boot sequence plays out:
 | `update` | Check for and apply updates via GitHub releases |
 | `vim <file>` | Open `file` in `vim` from the simulated Desktop |
 | `nvim <file>` | Open `file` in `neovim` from the simulated Desktop |
+| `nano <file>` | Open `file` in `nano` from the current directory |
+| `pwd` | Print the current directory |
 | `echo <text>` | Print text |
 | `which <name>` | Search `filesystem/bin/` for a binary |
 | `echo $SHELL` | Print the shell name (`Penguin`) |

@@ -260,5 +260,24 @@ std::string shell;
       else if (shell == "calculator"){
           calculator();
       }
+     else if (shell.substr(0,4) == "nano"){
+         if (shell.length() > 5){
+             std::string nano_target = shell.substr(5);
+std::string full_nano_target_cmd = "nano " + current_dir + "/" + nano_target;
+             int run_nano_cmd = std::system(full_nano_target_cmd.c_str());
+             if(run_nano_cmd !=0){
+                 std::cout << "Something Went Wrong\n";
+             }
+             else{
+                 // all good lil bro
+             }
+         }
+else{
+             std::system(("nano " + current_dir).c_str());
+         }
+     }
+     else if (shell == "pwd"){
+         std::cout << current_dir << "\n";
+     }
      }
    }

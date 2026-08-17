@@ -11,6 +11,8 @@
 - `cd` is now functional: tracks the working directory, supports `~`, `..`, `/boot`-style paths, and can explore anywhere inside `filesystem/` (sandboxed — can't leave it)
 - The shell prompt now shows the current directory (e.g. `[~/.cache]`)
 - Bootloader now validates the boot option: only `1` is accepted, invalid input exits cleanly instead of breaking the shell loop
+- New `pwd` command that prints the current directory
+- New `nano` command that opens files from the current directory (like `vim`/`nvim`)
 - `touch` no longer prints "enter a filename" when a filename is given
 - New `ls` command that lists the contents of the current directory (or `ls <dir>` for another)
 - `touch`, `vim`, and `nvim` now operate in the current directory
