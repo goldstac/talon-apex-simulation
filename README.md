@@ -70,7 +70,7 @@ When you run the binary, the following boot sequence plays out:
 
 Requires `g++` (C++17).
 
-> **Tip:** the easiest way to get Talon Apex is to download the prebuilt binary for your platform from the [latest release](https://github.com/goldstac/talon-apex-simulation/releases) — no compiler needed. Building from source works too if you prefer.
+> **Recommended:** download the prebuilt binary for your platform from the [latest release](https://github.com/goldstac/talon-apex-simulation/releases) — it's the cleanest experience, no compiler needed. A fresh source clone may include leftover artifacts that aren't fully covered by `.gitignore`, so you might need to clean those up (e.g. `git clean -fdx`) before building. Building from source is still supported if you prefer.
 
 ```sh
 ./quick.sh
