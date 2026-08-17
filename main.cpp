@@ -2,6 +2,7 @@
 #include "version.h"
 #include "bootloader.h"
 #include "logo.h"
+#include "kernel/extra/logger.h"
 #include "extra/apex-dep/calculator.h"
 #include <algorithm>
 #include <cstdlib>
@@ -67,18 +68,62 @@ void print_tree(const fs::path& path, const std::string& prefix, bool root_level
         }
     }
 }
+std::vector<std::string> critical_paths = {
+    "filesystem",
+    "filesystem/proc",
+    "filesystem/boot",
+    "filesystem/bin",
+    "filesystem/home/admin",
+    "filesystem/var/log",
+};
+void verify_system() {
+    bool broken = false;
+    for (const auto& path : critical_paths) {
+        if (!fs::exists(path)) {
+            broken = true;
+            log_critical("missing " + path + " — filesystem corrupted");
+        }
+    }
+    if (broken) {
+        std::cout << "-----------------------------------\n";
+        std::cout << "           SYSTEM CRASH\n";
+        std::cout << "-----------------------------------\n";
+        std::cout << "Critical components are missing.\n";
+        std::cout << "Last log entries:\n";
+        std::istringstream iss(read_log());
+        std::vector<std::string> lines;
+        std::string line;
+        while (std::getline(iss, line)) lines.push_back(line);
+        size_t start = lines.size() > 8 ? lines.size() - 8 : 0;
+        for (size_t i = start; i < lines.size(); ++i) {
+            std::cout << lines[i] << "\n";
+        }
+        std::cout << "-----------------------------------\n";
+        std::cout << "System halted. See filesystem/var/log/system.log\n";
+        std::exit(1);
+    }
+}
+bool is_critical_path(const std::string& path) {
+    for (const auto& c : critical_paths) {
+        if (path == c) return true;
+    }
+    return false;
+}
 int main(int argc,char* argv[]){
     std::string cpuinfo = read_file("filesystem/proc/cpuinfo");
 bootloader(argc,argv);
 std::string shell;
+int cmd_count = 0;
     while (true)
     {
+     if (++cmd_count % 5 == 0) verify_system();
      std::string display_dir = current_dir;
      if (display_dir.rfind("filesystem/home/admin", 0) == 0) {
          display_dir = "~" + display_dir.substr(21);
      }
      std::cout << "admin@talon [" << display_dir << "] " << version << "\n --> $ ";
      std::getline(std::cin,shell);
+     log_info("cmd: " + shell);
      if (shell == "clear"){
       #ifdef _WIN32
       std::system("cls");
@@ -216,6 +261,21 @@ std::string shell;
              std::cout << "cd: no such directory\n";
          }
      }
+     else if (shell.substr(0,5) == "mkdir"){
+         if (shell.length() > 6){
+             std::string target = resolve_path(shell.substr(6));
+             if (target != "filesystem" && target.rfind("filesystem/", 0) != 0) {
+                 std::cout << "mkdir: you can't leave the sandbox\n";
+             } else if (fs::create_directory(target)) {
+                 std::cout << "created " << target << "\n";
+             } else {
+                 std::cout << "mkdir: already exists or invalid\n";
+             }
+         }
+         else{
+             std::cout << "enter a directory name\n";
+         }
+     }
      else if (shell == "!ping"){
          std::cout << "Pong!\n";
          std::cout << "System Is Responsive\n";
@@ -238,6 +298,37 @@ std::string shell;
              for (const auto& e : fs::directory_iterator(ls_target)) {
                  std::cout << (e.is_directory() ? "[dir]  " : "[file] ") << e.path().filename().string() << "\n";
              }
+         }
+     }
+     else if (shell.substr(0,6) == "rm -rf"){
+         std::string base = shell.substr(7);
+         std::string target = resolve_path(base);
+         if (!fs::exists(target) && base.find('/') == std::string::npos && base != "." && base != "..") {
+             std::string alt = "filesystem/" + base;
+             if (fs::is_directory(alt)) target = alt;
+         }
+         if (target != "filesystem" && target.rfind("filesystem/", 0) != 0) {
+             std::cout << "rm: you can't leave the sandbox\n";
+         } else if (fs::remove_all(target) > 0) {
+             std::cout << "removed all " << target << "\n";
+             if (is_critical_path(target)) {
+                 log_critical("removed critical path " + target + " — system corrupted");
+             }
+         } else {
+             std::cout << "rm: no such directory\n";
+         }
+     }
+     else if (shell.substr(0,2) == "rm"){
+         std::string target = resolve_path(shell.substr(3));
+         if (target != "filesystem" && target.rfind("filesystem/", 0) != 0) {
+             std::cout << "rm: you can't leave the sandbox\n";
+         } else if (fs::remove(target)) {
+             std::cout << "removed " << target << "\n";
+             if (is_critical_path(target)) {
+                 log_critical("removed critical path " + target + " — system corrupted");
+             }
+         } else {
+             std::cout << "rm: no such file (use rm -rf for directories)\n";
          }
      }
      else if (shell == "cat proc/meminfo"){
@@ -278,6 +369,12 @@ else{
      }
      else if (shell == "pwd"){
          std::cout << current_dir << "\n";
+     }
+     else if (shell == "dmesg"){
+         std::cout << read_log() << "\n";
+     }
+     else{
+         log_warn("unknown command: " + shell);
      }
      }
    }

@@ -3,14 +3,16 @@
 #include <vector>
 #include <fstream>
 #include "make_dirs.h"
+#include "logger.h"
 namespace fs = std::filesystem;
 
 void make_dirs(int argc, char* argv[]) {
-
+   
      std::cout << "[Check] For System Directorys\n";
+    log_info("make_dirs: checking system directories");
     fs::path binary_dir = fs::absolute(argv[0]).parent_path();
 
-
+    
     std::vector<fs::path> directories = {
         binary_dir / "filesystem/home/admin/Desktop",
         binary_dir / "filesystem/home/admin/.cache",
@@ -21,14 +23,19 @@ void make_dirs(int argc, char* argv[]) {
         binary_dir / "filesystem/tmpfs",
         binary_dir / "filesystem/home/admin/.config",
         binary_dir / "filesystem/home/admin/.config/browser",
+        binary_dir / "filesystem/var/log",
+        binary_dir / "filesystem/etc",
     };
 
     for (const auto& path : directories) {
         if (!fs::exists(path)) {
+            log_warn("missing " + path.string() + " — regenerating");
             if (fs::create_directories(path)) {
                 std::cout << "[CREATED]   " << path << '\n';
+                log_info("regenerated " + path.string());
             } else {
                 std::cerr << "[FAILED]    Could not create " << path << '\n';
+                log_error("failed to create " + path.string());
             }
         } else {
             std::cout << "[EXISTS]    " << path << '\n';
@@ -53,6 +60,7 @@ void make_dirs(int argc, char* argv[]) {
             std::ofstream binary(bin);
         }
     }
+    log_info("make_dirs: proc files and binaries generated");
     std::string cpuinfo_path = "filesystem/proc/cpuinfo";
     if (!fs::exists(cpuinfo_path)) {
         std::ofstream cpuinfo(cpuinfo_path);

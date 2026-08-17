@@ -17,6 +17,7 @@ When you run the binary, the following boot sequence plays out:
 - Fake kernel init sequence
 - `penguinfetch` — colorful penguin-style system logo
 - Simulated hardware info via virtual `proc` files
+- System logging to `filesystem/var/log/system.log` — boot events, commands, errors, and crash reports (configurable via `filesystem/etc/talonlogd.conf`; first boot asks whether to show timestamps)
 - Built-in shell commands
 - `vim` / `nvim` integration for editing files in the simulated home directory
 - Self-updater that checks GitHub releases and downloads the newest binary
@@ -31,6 +32,9 @@ When you run the binary, the following boot sequence plays out:
 | `cat proc/meminfo` | Show simulated memory info (64 GB DDR5) |
 | `cd <dir>` | Change directory (supports `~`, `..`, `/boot` style paths — explore anywhere inside `filesystem/`, can't leave it) |
 | `ls` | List files/dirs in the current directory (`ls <dir>` to list another) |
+| `rm <file>` | Delete a file |
+| `rm -rf <dir>` | Delete a directory and everything inside it (no protections — use carefully) |
+| `mkdir <dir>` | Create a directory in the current directory |
 | `t!qi` | Show quick system/version info |
 | `kernel -v` | Show kernel version |
 | `bootloader --version` | Show bootloader version |
@@ -40,6 +44,7 @@ When you run the binary, the following boot sequence plays out:
 | `nvim <file>` | Open `file` in `neovim` from the simulated Desktop |
 | `nano <file>` | Open `file` in `nano` from the current directory |
 | `pwd` | Print the current directory |
+| `dmesg` | Print the system log (`filesystem/var/log/system.log`) |
 | `echo <text>` | Print text |
 | `which <name>` | Search `filesystem/bin/` for a binary |
 | `echo $SHELL` | Print the shell name (`Penguin`) |
@@ -80,7 +85,7 @@ Requires `g++` (C++17).
 Or build manually:
 
 ```sh
-g++ -o main main.cpp bootloader.cpp kernel/extra/make_dirs.cpp kernel/extra/initramfs.cpp logo.cpp update.cpp kernel/kernel.c
+g++ -o main main.cpp bootloader.cpp kernel/extra/make_dirs.cpp kernel/extra/initramfs.cpp kernel/extra/logger.cpp logo.cpp update.cpp kernel/kernel.c extra/apex-dep/calculator.c
 ./main
 ```
 
