@@ -6,11 +6,11 @@
 namespace fs = std::filesystem;
 
 void make_dirs(int argc, char* argv[]) {
-   
+
      std::cout << "[Check] For System Directorys\n";
     fs::path binary_dir = fs::absolute(argv[0]).parent_path();
 
-    
+
     std::vector<fs::path> directories = {
         binary_dir / "filesystem/home/admin/Desktop",
         binary_dir / "filesystem/home/admin/.cache",
@@ -40,6 +40,18 @@ void make_dirs(int argc, char* argv[]) {
     }
     else{
         // chill they exist
+    }
+    std::vector<std::string> binaries = {
+        "filesystem/bin/push",
+        "filesystem/bin/calculator",
+        "filesystem/bin/cat",
+        "filesystem/bin/ls",
+        "filesystem/bin/echo",
+    };
+    for (const auto& bin : binaries) {
+        if (!fs::exists(bin)) {
+            std::ofstream binary(bin);
+        }
     }
     std::string cpuinfo_path = "filesystem/proc/cpuinfo";
     if (!fs::exists(cpuinfo_path)) {
