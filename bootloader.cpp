@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "bootloader.h"
 void bootloader(){
     std::string boot_option;
     std::cout << "Flash Bootloader\n";

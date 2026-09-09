@@ -8,6 +8,7 @@ int main() {
     std::string version = "0.0.1";
     std::string status = "Alpha";
     std::string shell;
+    bootloader();
     while (1){
         std::cout << "admin@talon [~/Desktop] [ " << version << " " << status << " ] \n > ";
         std::getline(std::cin,shell);
