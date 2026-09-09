@@ -1,1 +1,1 @@
-g++ -o main  main.cpp && ./main
+g++ -o main  main.cpp bootloader.cpp && ./main
