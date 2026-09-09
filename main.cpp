@@ -3,6 +3,7 @@
 #include <sstream>
 #include <fstream>
 #include <filesystem>
+#include "bootloader.h"
 int main() {
     std::string version = "0.0.1";
     std::string status = "Alpha";
