@@ -4,3 +4,8 @@
 
 ## How To Try
 ### Build From Source
+#### Run
+```bash
+chmod +x test.sh
+./test.sh
+```
