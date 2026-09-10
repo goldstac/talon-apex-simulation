@@ -18,6 +18,9 @@ int main() {
         else if (shell == "t!ping"){
             std::cout << "Pong!\n";
         }
+        else if (shell == "t!-v"){
+            std::cout << version << " " << status << "\n";
+        }
     }
 
 }
