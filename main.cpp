@@ -25,6 +25,9 @@ int main() {
         else if (shell == "clear"){
             std::system("clear");
         }
+        else if (shell == "date"){
+            std::system("date");
+        }
     }
 
 }
