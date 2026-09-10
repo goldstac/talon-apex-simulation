@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include "bootloader.h"
 int main() {
-    std::string version = "1.0.0";
+    std::string version = "1.0.1";
     std::string status = "";
     std::string shell;
     bootloader();
