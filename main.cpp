@@ -3,9 +3,10 @@
 #include <sstream>
 #include <fstream>
 #include <filesystem>
+#include <cstdlib>
 #include "bootloader.h"
 int main() {
-    std::string version = "1.0.0";
+    std::string version = "1.0.1";
     std::string status = "";
     std::string shell;
     bootloader();
@@ -20,6 +21,12 @@ int main() {
         }
         else if (shell == "t!-v"){
             std::cout << version << " " << status << "\n";
+        }
+        else if (shell == "clear"){
+            std::system("clear");
+        }
+        else if (shell == "date"){
+            std::system("date");
         }
     }
 
