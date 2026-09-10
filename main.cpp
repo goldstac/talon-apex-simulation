@@ -6,7 +6,7 @@
 #include "bootloader.h"
 int main() {
     std::string version = "1.0.0";
-    std::string status = "Alpha";
+    std::string status = "Beta";
     std::string shell;
     bootloader();
     while (1){
