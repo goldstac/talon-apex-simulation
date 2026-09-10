@@ -16,7 +16,7 @@ int main() {
             break;
         }
         else if (shell == "t!ping"){
-            std::cout << "Pong!";
+            std::cout << "Pong!\n";
         }
     }
 
