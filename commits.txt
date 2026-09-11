@@ -1,0 +1,8 @@
+                          -------------------------------------------------
+                             This Text File Is For Storing Commit Data
+                           ------------------------------------------------
+                   usage : feat([extra stuff]): [commit message] (commit hash) ***
+                            Extra Info about the commit and what it does
+                            *** This File Is Used For Storing Commits***
+                         *** I Use This To Keep Track Of Commits For new Versions***
+                         *** Version [1.0.2] [WIP] [Commit History]
