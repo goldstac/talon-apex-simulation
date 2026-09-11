@@ -9,6 +9,9 @@ int main() {
     std::string version = "1.0.1";
     std::string status = "";
     std::string shell;
+    std::string home_dir = "filesystem/home/admin/Desktop";
+    std::string cache_dir = "filesystem/home/admin/.cache";
+    std::string config_dir = "filesystem/home/admin/.config";
     bootloader();
     while (1){
         std::cout << "admin@talon [~/Desktop] [ " << version << " " << status << " ] \n > ";
@@ -28,6 +31,7 @@ int main() {
         else if (shell == "date"){
             std::system("date");
         }
+
     }
 
 }
