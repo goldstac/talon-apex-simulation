@@ -3,3 +3,4 @@ kernel
 bootloader
 talon
 main
+kernel/kernel
