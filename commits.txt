@@ -5,4 +5,9 @@
                             Extra Info about the commit and what it does
                             *** This File Is Used For Storing Commits***
                          *** I Use This To Keep Track Of Commits For new Versions***
-                         *** Version [1.0.2] [WIP] [Commit History]
+                               Version [1.0.2] [WIP] [Commit History]
+chore(filesystem): create variables with the core filesystem paths (91c691daaff1e326c36602485b815d69b3bca418)
+chore(filesystem):create more directorys and bin-script (de7cda573804c051dcb8732f55fcf083b1a5bd28)
+feat(kernel): basic development of the talon kernel simulation & trying to implement /dev/urandom (ff5376dc9ca33873e70993a6c161baa129c4c9af)
+feat(kernel):push kernel code (1546e90557310d93d70ae9d681ff592ec7372ff7)
+chore(versioning): create commits.txt (461b6ff11eeff8390ddf3a0d872d95c90c23bf97)
