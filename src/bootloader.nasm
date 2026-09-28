@@ -16,10 +16,5 @@ bootloader:
  mov rsi,buf
  mov rdx,64
  syscall 
- mov rdx,rax
- mov rax,1
- mov rdi,1
- mov rsi,buf
- syscall
  ret
 
