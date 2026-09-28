@@ -1,2 +1,7 @@
 #include <stdio.h>
-int main() { return 0; }
+extern void bootloader(void);
+int main(void) {
+
+  bootloader();
+  return 0;
+}
