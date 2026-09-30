@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 extern void bootloader(void);
+extern void input(void);
 extern char buf[64];
 
 int main(void) {
@@ -11,7 +12,8 @@ int main(void) {
   buf[strcspn(buf, "\n")] = '\0';
   int buf_int = atoi(buf);
   if (buf_int == 1) {
-    printf("a");
+    input();
+
   } else {
     return 1;
   }
