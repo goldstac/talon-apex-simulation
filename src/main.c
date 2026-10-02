@@ -20,7 +20,7 @@ int main(void) {
       user_input[strcspn(user_input, "\n")] = '\0';
       char argv[6][64];
       int argc = split_string(user_input, ' ', 6, 64, argv);
-      if (strcmp(argv[0], "exit")) {
+      if (strcmp(argv[0], "exit") == 0) {
         break;
       } else if (argc == 0) {
         continue;
