@@ -12,4 +12,6 @@ make
 ./bin/main 
 
 ```
-
+## AI Use 
+### Agents/LLM's are Allowed 
+### but i prefer to code my self with some help with ai in this project
