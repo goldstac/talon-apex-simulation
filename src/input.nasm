@@ -1,10 +1,6 @@
 section .data 
-   welcome_msg db "Welcome To Talon Apex",0xa
-   welcome_msg_len equ $ - welcome_msg
-
    shell_prompt db "talon@admin $ > "
    shell_prompt_len equ $ - shell_prompt
-
 
 section .bss
    user_input resb 64
@@ -13,11 +9,6 @@ section .text
    global input
 
 input:
-   mov rax,1
-   mov rdi,1
-   mov rsi,welcome_msg
-   mov rdx,welcome_msg_len
-   syscall
 
    mov rax,1
    mov rdi,1

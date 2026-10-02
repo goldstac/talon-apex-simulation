@@ -13,6 +13,7 @@ int main(void) {
   buf[63] = '\0';
   buf[strcspn(buf, "\n")] = '\0';
   int buf_int = atoi(buf);
+  printf("Welcome To Talon Apex\n");
   if (buf_int == 1) {
     while (1) {
       input();
@@ -22,7 +23,7 @@ int main(void) {
       int argc = split_string(user_input, ' ', 6, 64, argv);
       if (strcmp(argv[0], "exit") == 0) {
         break;
-      } else if (argc == 0) {
+      } else if (argv[0][0] == '\0') {
         continue;
       }
     }
