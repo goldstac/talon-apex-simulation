@@ -1,7 +1,7 @@
 # Talon Apex Simulation
 ## An Operating System Simulation Made in C And Assembly 
 
-### Legacy Version [https://github.com/goldstac/talon-os-simulation]
+### Legacy Version [Legacy Code](https://github.com/goldstac/talon-os-simulation)
 
 
 ### Build From Source 
