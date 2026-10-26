@@ -5,6 +5,7 @@
 #include <string.h>
 extern void bootloader(void);
 extern void input(void);
+extern void kernel(void);
 extern char buf[64];
 extern char user_input[64];
 int main(void) {
